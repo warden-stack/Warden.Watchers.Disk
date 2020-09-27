@@ -72,7 +72,7 @@ namespace Warden.Watchers.Disk
         /// <param name="directory">Full path of the directory in which the file exists e.g. D:\Images.</param>
         /// <returns></returns>
         public static FileInfo NotFound(string name, string path, string extension, string partition, string directory)
-            => new FileInfo(name, path, extension, false, 0, partition, directory, default);
+            => new FileInfo(name, path, extension, false, 0, partition, directory, new DateTime());
 
         /// <summary>
         /// 
