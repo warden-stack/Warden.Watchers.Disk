@@ -1,4 +1,6 @@
-﻿namespace Warden.Watchers.Disk
+﻿using System;
+
+namespace Warden.Watchers.Disk
 {
     /// <summary>
     /// Details of the performed file analysis.
@@ -40,8 +42,14 @@
         /// </summary>
         public string Directory { get; }
 
+        /// <summary>
+        /// File creation time in coordinated universal time (UTC).
+        /// </summary>
+        public DateTime CreationTimeUtc { get; }
+
         protected FileInfo(string path, string name, string extension,
-            bool exists, long size, string partition, string directory)
+            bool exists, long size, string partition, string directory,
+            DateTime creationTimeUtc)
         {
             Path = path;
             Name = name;
@@ -51,6 +59,7 @@
             Size = size;
             Partition = partition;
             Directory = directory;
+            CreationTimeUtc = creationTimeUtc;
         }
 
         /// <summary>
@@ -63,7 +72,7 @@
         /// <param name="directory">Full path of the directory in which the file exists e.g. D:\Images.</param>
         /// <returns></returns>
         public static FileInfo NotFound(string name, string path, string extension, string partition, string directory)
-            => new FileInfo(name, path, extension, false, 0, partition, directory);
+            => new FileInfo(name, path, extension, false, 0, partition, directory, new DateTime());
 
         /// <summary>
         /// 
@@ -74,9 +83,10 @@
         /// <param name="sizeBytes">Size in bytes.</param>
         /// <param name="partition">Name of the directory in which the file exists e.g. D:\.</param>
         /// <param name="directory">Full path of the directory in which the file exists e.g. D:\Images.</param>
+        /// <param name="creationTimeUtc">File creation time in coordinated universal time (UTC).</param>
         /// <returns></returns>
         public static FileInfo Create(string name, string path, string extension, long sizeBytes,
-            string partition, string directory)
-            => new FileInfo(name, path, extension, true, sizeBytes, partition, directory);
+            string partition, string directory, DateTime creationTimeUtc)
+            => new FileInfo(name, path, extension, true, sizeBytes, partition, directory, creationTimeUtc);
     }
 }

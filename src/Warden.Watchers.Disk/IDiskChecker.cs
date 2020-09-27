@@ -83,7 +83,7 @@ namespace Warden.Watchers.Disk
                 return FileInfo.NotFound(info.Name, info.FullName, info.Extension, partition, info.DirectoryName);
 
             return FileInfo.Create(info.Name, info.FullName, info.Extension, info.Length, partition,
-                info.DirectoryName);
+                info.DirectoryName, info.CreationTimeUtc);
         }
     }
 }
